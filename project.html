@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SV Interior Decorators</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16">
+    
+    <style>
+/* Optional: If you want a slightly different shade, try these alternatives */
+/*
+body, .boxed_wrapper, .main-project-area {
+    background-color: #F7DC6F !important; /* Lighter yellow */
+    background: #F7DC6F !important;
+
+/*
+body, .boxed_wrapper, .main-project-area {
+    background-color: #F1C40F !important; /* Golden yellow */
+    background: #F1C40F !important;
+
+/* Change footer contact info background to dark yellow - targeting specific elements */
+section.footer-contact-info-area {
+    background-color: #B8860B !important; /* Dark yellow/goldenrod */
+    background: #B8860B !important;
+}
+
+/* Target the container and row inside */
+.footer-contact-info-area .container {
+    background-color: #B8860B !important;
+    background: #B8860B !important;
+}
+
+.footer-contact-info-area .row {
+    background-color: #B8860B !important;
+    background: #B8860B !important;
+}
+
+/* Target the ul with footer-contact-info class */
+ul.footer-contact-info {
+    background-color: #B8860B !important;
+    background: #B8860B !important;
+}
+
+/* More specific targeting */
+.footer-contact-info.clearfix {
+    background-color: #B8860B !important;
+    background: #B8860B !important;
+}
+
+
+/* Force white background with higher specificity and after page load */
+html body section.top-bar-style2 {
+    background: white !important;
+    background-color: white !important;
+}
+
+/* For scroll effect */
+html body section.top-bar-style2.scrolled {
+    background: rgb(38, 39, 43) !important;
+    background-color: rgb(38, 39, 43) !important;
+}
+
+/* Smooth transition */
+html body section.top-bar-style2 {
+    transition: background-color 0.3s ease !important;
+}
+
+/* Optional: Add transition for smooth color change on scroll */
+.top-bar-style2,
+.top-bar-style2::before,
+.top-bar-style2::after,
+.top-style2,
+.top-style2::before,
+.top-style2::after {
+    transition: background-color 0.3s ease !important;
+}
+
+/* When scrolling (you'll need to add 'scrolled' class via JavaScript) */
+.top-bar-style2.scrolled {
+    background-color: #f8f9fa !important; /* or whatever color you want when scrolled */
+}
+
+.top-bar-style2.scrolled::before,
+.top-bar-style2.scrolled::after {
+    background-color: #f8f9fa !important;
+}
+
+.top-style2.scrolled {
+    background-color: #f8f9fa !important;
+}
+
+.top-style2.scrolled::before,
+.top-style2.scrolled::after {
+    background-color: #f8f9fa !important;
+}
+/* Make all text in the top bar blue */
+.top-style2 * {
+    color: #0066CC !important; /* Blue color */
+}
+
+/* Specifically target the left side text */
+.top-style2-left p,
+.top-style2-left ul li {
+    color: #0066CC !important;
+}
+
+/* Target the social media icons and links */
+.top-style2-right .topbar-social-links li a,
+.top-style2-right .topbar-social-links li a i {
+    color: #0066CC !important;
+}
+
+    #project-1 .overlay-content {
+        background: #2d5a2d !important;
+        background-color: #2d5a2d !important;
+    }
+    #project-1 .overlay-content::before,
+    #project-1 .overlay-content::after {
+        background: #2d5a2d !important;
+        background-color: #2d5a2d !important;
+    }
+    
+    #project-2 .overlay-content {
+        background: #8e2633 !important;
+        background-color: #8e2633 !important;
+    }
+    #project-2 .overlay-content::before,
+    #project-2 .overlay-content::after {
+        background: #8e2633 !important;
+        background-color: #8e2633 !important;
+    }
+    
+    #project-3 .overlay-content {
+        background: #1565c0 !important;
+        background-color: #1565c0 !important;
+    }
+    #project-3 .overlay-content::before,
+    #project-3 .overlay-content::after {
+        background: #1565c0 !important;
+        background-color: #1565c0 !important;
+    }
+    
+    #project-4 .overlay-content {
+        background: #e65100 !important;
+        background-color: #e65100 !important;
+    }
+    #project-4 .overlay-content::before,
+    #project-4 .overlay-content::after {
+        background: #e65100 !important;
+        background-color: #e65100 !important;
+    }
+    
+    #project-5 .overlay-content {
+        background: #4a148c !important;
+        background-color: #4a148c !important;
+    }
+    #project-5 .overlay-content::before,
+    #project-5 .overlay-content::after {
+        background: #4a148c !important;
+        background-color: #4a148c !important;
+    }
+    
+    #project-6 .overlay-content {
+        background: #f57f17 !important;
+        background-color: #f57f17 !important;
+    }
+    #project-6 .overlay-content::before,
+    #project-6 .overlay-content::after {
+        background: #f57f17 !important;
+        background-color: #f57f17 !important;
+    }
+    
+    #project-7 .overlay-content {
+        background: #006064 !important;
+        background-color: #006064 !important;
+    }
+    #project-7 .overlay-content::before,
+    #project-7 .overlay-content::after {
+        background: #006064 !important;
+        background-color: #006064 !important;
+    }
+    
+    #project-8 .overlay-content {
+        background: #ad1457 !important;
+        background-color: #ad1457 !important;
+    }
+    #project-8 .overlay-content::before,
+    #project-8 .overlay-content::after {
+        background: #ad1457 !important;
+        background-color: #ad1457 !important;
+    }
+    
+    #project-9 .overlay-content {
+        background: #1b5e20 !important;
+        background-color: #1b5e20 !important;
+    }
+    #project-9 .overlay-content::before,
+    #project-9 .overlay-content::after {
+        background: #1b5e20 !important;
+        background-color: #1b5e20 !important;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="boxed_wrapper">
+        <div class="preloader"></div>
+        
+        <section class="top-bar-style2">
+            <div class="top-style2 clearfix">
+                <div class="top-style2-left">
+                    <p><span class="icon-music"></span>We have Answers</p>
+                    <ul>
+                        <li>+91 99598 66744</li>
+                        <li>info@svinteriorconcept.com</li>
+                        <li>Mon - Sun: 9am to 9pm</li>
+                    </ul>
+                </div>
+                <div class="top-style2-right">
+                    <ul class="topbar-social-links">
+                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <header class="main-header header-style2 stricky">
+            <div class="inner-container clearfix">
+                <div class="logo-box-style2 float-left">
+                    <a href="index-2.html">
+                        <img src="images/resources/logo.png" alt="Awesome Logo">
+                    </a>
+                </div>
+                <div class="main-menu-box float-right">
+                    <nav class="main-menu style2 clearfix">
+                        <div class="navbar-header clearfix">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="navbar-collapse collapse clearfix">
+                            <ul class="navigation clearfix">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="services.html">Services</a></li>
+                                <li><a href="project.html">Projects</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <section class="breadcrumb-area style2" style="background-image: url(images/resources/breadcrumb-bg-2.jpg);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="inner-content-box clearfix">
+                            <div class="title-s2 text-center">
+                                <span>Our Projects</span>
+                                <h1>More than 2300 Projects</h1>
+                            </div>
+                            <div class="breadcrumb-menu float-left">
+                                <ul class="clearfix">
+                                    <li><a href="index-2.html">Home</a></li>
+                                    <li><a href="project.html">Projects</a></li>
+                                    <li class="active">Classic View V1</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="main-project-area">
+            <div class="container">
+                <ul class="project-filter post-filter has-dynamic-filters-counter">
+                    <li data-filter=".filter-item" class="active"><span class="filter-text">All Projects</span></li>
+                    <li data-filter=".mod"><span class="filter-text">Modern</span></li>
+                    <li data-filter=".contem"><span class="filter-text">Contemporary</span></li>
+                    <li data-filter=".trad"><span class="filter-text">Traditional</span></li>
+                    <li data-filter=".ret"><span class="filter-text">Retreat</span></li>
+                </ul>
+                <div class="row filter-layout masonary-layout">
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 filter-item contem ret" id="project-1">
+                        <div class="single-project-style4">
+                            <div class="img-holder">
+                                <div class="inner">
+                                    <img src="images/projects/v1-1.jpg" alt="Awesome Image">
+                                    <div class="overlay-box">
+                                        <div class="box">
+                                            <div class="link">
+                                                <a href="project-single.html"><span class="icon-out"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overlay-content">
+                                    <div class="title">
+                                        <span>Modern Design</span>
+                                        <h3><a href="project-single.html">Art Family Residence</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 filter-item mod trad" id="project-2">
+                        <div class="single-project-style4">
+                            <div class="img-holder">
+                                <div class="inner">
+                                    <img src="images/projects/v1-2.jpg" alt="Awesome Image">
+                                    <div class="overlay-box">
+                                        <div class="box">
+                                            <div class="link">
+                                                <a href="project-single.html"><span class="icon-out"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overlay-content">
+                                    <div class="title">
+                                        <span>Modern Design</span>
+                                        <h3><a href="project-single.html">Art Family Residence</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 filter-item mod ret" id="project-3">
+                        <div class="single-project-style4">
+                            <div class="img-holder">
+                                <div class="inner">
+                                    <img src="images/projects/v1-3.jpg" alt="Awesome Image">
+                                    <div class="overlay-box">
+                                        <div class="box">
+                                            <div class="link">
+                                                <a href="project-single.html"><span class="icon-out"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overlay-content">
+                                    <div class="title">
+                                        <span>Modern Design</span>
+                                        <h3><a href="project-single.html">Art Family Residence</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 filter-item contem ret" id="project-4">
+                        <div class="single-project-style4">
+                            <div class="img-holder">
+                                <div class="inner">
+                                    <img src="images/projects/v1-4.jpg" alt="Awesome Image">
+                                    <div class="overlay-box">
+                                        <div class="box">
+                                            <div class="link">
+                                                <a href="project-single.html"><span class="icon-out"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overlay-content">
+                                    <div class="title">
+                                        <span>Modern Design</span>
+                                        <h3><a href="project-single.html">Art Family Residence</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 filter-item mod trad" id="project-5">
+                        <div class="single-project-style4">
+                            <div class="img-holder">
+                                <div class="inner">
+                                    <img src="images/projects/v1-5.jpg" alt="Awesome Image">
+                                    <div class="overlay-box">
+                                        <div class="box">
+                                            <div class="link">
+                                                <a href="project-single.html"><span class="icon-out"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overlay-content">
+                                    <div class="title">
+                                        <span>Modern Design</span>
+                                        <h3><a href="project-single.html">Art Family Residence</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 filter-item mod ret" id="project-6">
+                        <div class="single-project-style4">
+                            <div class="img-holder">
+                                <div class="inner">
+                                    <img src="images/projects/v1-6.jpg" alt="Awesome Image">
+                                    <div class="overlay-box">
+                                        <div class="box">
+                                            <div class="link">
+                                                <a href="project-single.html"><span class="icon-out"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overlay-content">
+                                    <div class="title">
+                                        <span>Modern Design</span>
+                                        <h3><a href="project-single.html">Art Family Residence</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 filter-item contem ret" id="project-7">
+                        <div class="single-project-style4">
+                            <div class="img-holder">
+                                <div class="inner">
+                                    <img src="images/projects/v1-7.jpg" alt="Awesome Image">
+                                    <div class="overlay-box">
+                                        <div class="box">
+                                            <div class="link">
+                                                <a href="project-single.html"><span class="icon-out"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overlay-content">
+                                    <div class="title">
+                                        <span>Modern Design</span>
+                                        <h3><a href="project-single.html">Art Family Residence</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 filter-item mod trad" id="project-8">
+                        <div class="single-project-style4">
+                            <div class="img-holder">
+                                <div class="inner">
+                                    <img src="images/projects/v1-8.jpg" alt="Awesome Image">
+                                    <div class="overlay-box">
+                                        <div class="box">
+                                            <div class="link">
+                                                <a href="project-single.html"><span class="icon-out"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overlay-content">
+                                    <div class="title">
+                                        <span>Modern Design</span>
+                                        <h3><a href="project-single.html">Art Family Residence</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 filter-item mod ret" id="project-9">
+                        <div class="single-project-style4">
+                            <div class="img-holder">
+                                <div class="inner">
+                                    <img src="images/projects/v1-9.jpg" alt="Awesome Image">
+                                    <div class="overlay-box">
+                                        <div class="box">
+                                            <div class="link">
+                                                <a href="project-single.html"><span class="icon-out"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overlay-content">
+                                    <div class="title">
+                                        <span>Modern Design</span>
+                                        <h3><a href="project-single.html">Art Family Residence</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer-area style4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="single-footer-widget marbtm50-s4">
+                            <div class="our-info-box">
+                                <div class="footer-logo">
+                                    <a href="index-2.html">
+                                        <img src="images/icon/home-1.png" alt="Awesome Logo">
+                                    </a>
+                                </div>
+                                <div class="text">
+                                    <p style="color: white;">On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the blinded by desiremoment.</p>
+                                </div>
+                                <div class="follow-us-social-links clearfix">
+                                    <span>Follw Us On:</span>
+                                    <ul>
+                                        <li><a href="#" style="color: white;">Facebook</a></li>
+                                        <li><a href="#" style="color: white;">Twitter</a></li>
+                                        <li><a href="#" style="color: white;">Instagram</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+                        <div class="single-footer-widget s4">
+                            <div class="title-style2">
+                                <h3 style="color: white;">Usefull Links</h3>
+                            </div>
+                            <div class="usefull-links">
+                                <ul class="float-left">
+                                    <li><a href="#" style="color: white;">Company</a></li>
+                                    <li><a href="#" style="color: white;">Services</a></li>
+                                    <li><a href="#" style="color: white;">Team</a></li>
+                                    <li><a href="#" style="color: white;">Projects</a></li>
+                                    <li><a href="#" style="color: white;">Get a Quote</a></li>
+                                </ul>
+                                <ul class="float-left borders-left">
+                                    <li><a href="#" style="color: white;">News</a></li>
+                                    <li><a href="#" style="color: white;">Testimonials</a></li>
+                                    <li><a href="#" style="color: white;">Partners</a></li>
+                                    <li><a href="#" style="color: white;">Privacy Policy</a></li>
+                                    <li><a href="#" style="color: white;">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12">
+                        <div class="single-footer-widget pdtop50-s4">
+                            <div class="title-style2">
+                                <h3>Subscribe Us</h3>
+                            </div>
+                            <div class="subscribe-box">
+                                <form class="subscribe-form" action="#">
+                                    <input type="email" name="email" placeholder="Your Email">
+                                    <button class="btn-one" type="submit">Subscribe<span class="flaticon-next"></span></button>
+                                </form>
+                                <div class="text">
+                                    <p style="color: white;"><span>*</span>Subscribe us and get latest news and updates</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <section class="footer-contact-info-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <ul class="footer-contact-info clearfix">
+                            <li>
+                                <div class="single-footer-contact-info">
+                                    <div class="inner">
+                                        <div class="icon">
+                                            <span class="icon-global"></span>
+                                        </div>
+                                        <div class="text">
+                                            <p style="color: white;">5-5-296/303 Prashanth Nagar Balaji homes, vanasthalipuram Hyderabad -500070</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="single-footer-contact-info">
+                                    <div class="inner">
+                                        <div class="icon">
+                                            <span class="icon-support1"></span>
+                                        </div>
+                                        <div class="text">
+                                            <p style="color: white;">+91 9959866744<br> <span>Mon - Friday:</span> 9.00am to 6.00pm</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="single-footer-contact-info">
+                                    <div class="inner">
+                                        <div class="icon">
+                                            <span class="icon-shipping-and-delivery"></span>
+                                        </div>
+                                        <div class="text">
+                                            <p style="color: white;">art.sseenu@gmail.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="footer-bottom-area style3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="copyright-text text-center">
+                            <p><a href="https://www.templateshub.net" target="_blank">Templates Hub</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/isotope.js"></script>
+    <script src="js/jquery.bootstrap-touchspin.js"></script>
+    <script src="js/jquery.countTo.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.enllax.min.js"></script>
+    <script src="js/jquery.fancybox.js"></script>
+    <script src="js/jquery.mixitup.min.js"></script>
+    <script src="js/jquery.paroller.min.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/map-helper.js"></script>
+    <script src="assets/language-switcher/jquery.polyglot.language.switcher.js"></script>
+    <script src="assets/timepicker/timePicker.js"></script>
+    <script src="assets/html5lightbox/html5lightbox.js"></script>
+    <script src="js/custom.js"></script>
+    
+</body>
+</html>
