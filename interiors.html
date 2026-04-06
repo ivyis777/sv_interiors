@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interiors | SV Interior Decorators</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Rubik:wght@300;400;500;600&display=swap');
+
+        :root {
+            --gold: #CF8531;
+            --brown: #A44A26;
+            --dark-grey: #5B5B5B;
+            --cream: #FFF8F0;
+            --light-gold: #F5E0C4;
+            --dark: #2a2a2a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background: var(--cream);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        .gallery-header {
+            background: var(--dark);
+            padding: 30px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-header::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(207,133,49,0.15) 0%, transparent 50%), linear-gradient(225deg, rgba(164,74,38,0.1) 0%, transparent 50%);
+        }
+        .gallery-header h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #fff; position: relative; z-index: 1; }
+        .gallery-header h1 span { color: var(--gold); }
+        .gallery-header p { color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-top: 8px; position: relative; z-index: 1; font-weight: 300; }
+        .back-link { position: absolute; left: 30px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; z-index: 2; transition: color 0.3s; }
+        .back-link:hover { color: var(--gold); }
+
+        .gallery-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .gallery-item {
+            position: relative; border-radius: 6px; overflow: hidden; background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08); cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            aspect-ratio: 4/3; animation: slideUp 0.5s ease forwards; opacity: 0;
+        }
+        .gallery-item:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-item .overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(42,42,42,0.85) 100%);
+            opacity: 0; transition: opacity 0.4s ease; display: flex; align-items: flex-end; padding: 20px;
+        }
+        .gallery-item:hover .overlay { opacity: 1; }
+        .overlay .caption { color: #fff; font-size: 0.85rem; }
+        .overlay .caption strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 4px; }
+
+        .category-tag { position: absolute; top: 12px; right: 12px; padding: 4px 12px; border-radius: 3px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; z-index: 2; }
+        .category-tag.interior { background: var(--gold); color: #fff; }
+
+        .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; justify-content: center; align-items: center; padding: 40px; cursor: zoom-out; }
+        .lightbox.open { display: flex; animation: fadeIn 0.3s ease; }
+        .lightbox img { max-width: 90%; max-height: 85vh; object-fit: contain; border-radius: 4px; box-shadow: 0 10px 60px rgba(0,0,0,0.5); }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 2rem; cursor: pointer; opacity: 0.7; transition: opacity 0.3s; background: none; border: none; }
+        .lightbox-close:hover { opacity: 1; }
+        .lightbox-caption { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.8); font-family: 'Playfair Display', serif; font-size: 1.1rem; text-align: center; }
+        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); color: #fff; font-size: 2.5rem; cursor: pointer; opacity: 0.6; transition: opacity 0.3s; background: none; border: none; padding: 20px; }
+        .lightbox-nav:hover { opacity: 1; }
+        .lightbox-nav.prev { left: 10px; }
+        .lightbox-nav.next { right: 10px; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            .gallery-header h1 { font-size: 1.6rem; }
+            .back-link { display: none; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+            .gallery-container { padding: 24px 12px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery-header">
+        <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Back to Home</a>
+        <h1>Our <span>Interiors</span></h1>
+        <p>SV Interior Decorators — Interior Projects</p>
+    </div>
+
+    <div class="gallery-container">
+        <div class="gallery-grid" id="galleryGrid">
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.51.58 (1).jpeg" alt="Interior 1" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 1</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.51.58.jpeg" alt="Interior 2" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 2</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.00 (1).jpeg" alt="Interior 3" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 3</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.00 (2).jpeg" alt="Interior 4" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 4</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.00.jpeg" alt="Interior 5" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 5</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.01 (1).jpeg" alt="Interior 6" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 6</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.01 (2).jpeg" alt="Interior 7" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 7</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.01 (3).jpeg" alt="Interior 8" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 8</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.01.jpeg" alt="Interior 9" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 9</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.03 (1).jpeg" alt="Interior 10" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 10</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.03 (2).jpeg" alt="Interior 11" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 11</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.03.jpeg" alt="Interior 12" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 12</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.04 (1).jpeg" alt="Interior 13" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 13</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.04.jpeg" alt="Interior 14" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 14</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.05 (1).jpeg" alt="Interior 15" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 15</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.05.jpeg" alt="Interior 16" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 16</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.06 (1).jpeg" alt="Interior 17" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 17</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.06.jpeg" alt="Interior 18" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 18</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.07 (1).jpeg" alt="Interior 19" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 19</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.07.jpeg" alt="Interior 20" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 20</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.08.jpeg" alt="Interior 21" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 21</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.09.jpeg" alt="Interior 22" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 22</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.11 (1).jpeg" alt="Interior 23" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 23</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.11.jpeg" alt="Interior 24" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 24</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.12 (1).jpeg" alt="Interior 25" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 25</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.12 (2).jpeg" alt="Interior 26" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 26</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.12.jpeg" alt="Interior 27" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 27</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.13 (1).jpeg" alt="Interior 28" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 28</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.13.jpeg" alt="Interior 29" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 29</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.14 (1).jpeg" alt="Interior 30" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 30</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.14 (2).jpeg" alt="Interior 31" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 31</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.14.jpeg" alt="Interior 32" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 32</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.15.jpeg" alt="Interior 33" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 33</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.16 (1).jpeg" alt="Interior 34" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 34</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.16.jpeg" alt="Interior 35" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 35</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.17 (1).jpeg" alt="Interior 36" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 36</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.17 (2).jpeg" alt="Interior 37" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 37</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.17.jpeg" alt="Interior 38" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 38</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.18 (1).jpeg" alt="Interior 39" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 39</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.18 (2).jpeg" alt="Interior 40" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 40</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.18 (3).jpeg" alt="Interior 41" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 41</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.18.jpeg" alt="Interior 42" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 42</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.19 (1).jpeg" alt="Interior 43" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 43</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.19 (2).jpeg" alt="Interior 44" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 44</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.19.jpeg" alt="Interior 45" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 45</strong>SV Interior Decorators</div></div>
+            </div>
+
+            <div class="gallery-item" data-category="interior">
+                <span class="category-tag interior">Interior</span>
+                <img src="images/WhatsApp Image 2026-04-02 at 14.52.20.jpeg" alt="Interior 46" loading="lazy">
+                <div class="overlay"><div class="caption"><strong>Interior Project 46</strong>SV Interior Decorators</div></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <button class="lightbox-nav prev" id="lightboxPrev"><i class="fa fa-chevron-left"></i></button>
+        <button class="lightbox-nav next" id="lightboxNext"><i class="fa fa-chevron-right"></i></button>
+        <img src="" alt="" id="lightboxImg">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+    <script>
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            const item = galleryItems[currentIndex];
+            lightboxImg.src = item.querySelector('img').src;
+            const cap = item.querySelector('.caption strong');
+            lightboxCaption.textContent = cap ? cap.textContent : '';
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function navigate(dir) {
+            currentIndex = (currentIndex + dir + galleryItems.length) % galleryItems.length;
+            const item = galleryItems[currentIndex];
+            lightboxImg.src = item.querySelector('img').src;
+            const cap = item.querySelector('.caption strong');
+            lightboxCaption.textContent = cap ? cap.textContent : '';
+        }
+
+        galleryItems.forEach((item, i) => {
+            item.style.animationDelay = `${i * 40}ms`;
+            item.addEventListener('click', () => openLightbox(i));
+        });
+
+        document.getElementById('lightboxPrev').addEventListener('click', e => { e.stopPropagation(); navigate(-1); });
+        document.getElementById('lightboxNext').addEventListener('click', e => { e.stopPropagation(); navigate(1); });
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener('keydown', e => {
+            if (!lightbox.classList.contains('open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    </script>
+
+</body>
+</html>
