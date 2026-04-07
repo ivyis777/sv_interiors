@@ -3541,7 +3541,7 @@ select:focus {
     left: 0;
     width: 100%;
     z-index: 99999999;
-    background: #fedbb4;
+    background: #ffffff;
     margin: 0;
     animation-name: menu_sticky;
     animation-duration: 0.60s;
